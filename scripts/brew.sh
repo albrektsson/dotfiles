@@ -23,7 +23,8 @@ install_brewfile() {
   local file="$1"
   if [ -f "$file" ]; then
     echo "  Installing from $(basename "$file")..."
-    brew bundle install --file="$file" --no-lock
+    # Use env var instead of --no-lock for compatibility with older Homebrew versions
+    HOMEBREW_BUNDLE_NO_LOCK=1 brew bundle install --file="$file"
   else
     echo "  No $(basename "$file") found, skipping"
   fi
