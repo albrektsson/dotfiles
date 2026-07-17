@@ -57,3 +57,4 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
+eval "$(fnox activate zsh)"

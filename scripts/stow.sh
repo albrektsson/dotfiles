@@ -12,6 +12,7 @@ cd "$DOTFILES_DIR"
 # Packages stowed on all machines
 COMMON=(
   git
+  hooks
   opencode
   starship
   mise

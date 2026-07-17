@@ -24,6 +24,8 @@ SKIP_BREW=false
 SKIP_STOW=false
 SKIP_OMZ=false
 SKIP_MISE=false
+SKIP_VIM=false
+SKIP_FONTS=false
 
 for arg in "$@"; do
   case "$arg" in
@@ -31,8 +33,10 @@ for arg in "$@"; do
     --skip-stow)  SKIP_STOW=true ;;
     --skip-omz)   SKIP_OMZ=true ;;
     --skip-mise)  SKIP_MISE=true ;;
+    --skip-vim)   SKIP_VIM=true ;;
+    --skip-fonts) SKIP_FONTS=true ;;
     --help)
-      echo "Usage: bootstrap.sh [--skip-brew] [--skip-stow] [--skip-omz] [--skip-mise]"
+      echo "Usage: bootstrap.sh [--skip-brew] [--skip-omz] [--skip-vim] [--skip-mise] [--skip-fonts] [--skip-stow]"
       exit 0
       ;;
   esac
@@ -56,7 +60,9 @@ run_step() {
 
 run_step "Homebrew + packages" "$SCRIPTS_DIR/brew.sh"  "$SKIP_BREW"
 run_step "oh-my-zsh"           "$SCRIPTS_DIR/omz.sh"   "$SKIP_OMZ"
+run_step "vim runtime"         "$SCRIPTS_DIR/vim.sh"   "$SKIP_VIM"
 run_step "mise"                "$SCRIPTS_DIR/mise.sh"  "$SKIP_MISE"
+run_step "fonts"               "$SCRIPTS_DIR/fonts.sh" "$SKIP_FONTS"
 run_step "stow dotfiles"       "$SCRIPTS_DIR/stow.sh"  "$SKIP_STOW"
 
 # ── Check for machine-local git config ──────────────────────────────────────

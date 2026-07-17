@@ -13,7 +13,7 @@ cd ~/dotfiles
 Skip individual steps if needed:
 
 ```bash
-./bootstrap.sh --skip-omz --skip-mise
+./bootstrap.sh --skip-brew --skip-omz --skip-vim --skip-mise --skip-fonts --skip-stow
 ```
 
 ## Structure
@@ -24,16 +24,21 @@ dotfiles/
 ├── scripts/
 │   ├── brew.sh           # install Homebrew + packages
 │   ├── omz.sh            # install oh-my-zsh
+│   ├── vim.sh            # clone/update amix/vimrc runtime
 │   ├── mise.sh           # install mise + tools
+│   ├── fonts.sh          # install FiraCode Nerd Font
 │   ├── stow.sh           # link dotfiles
 │   └── save-packages.sh  # snapshot installed packages
 ├── packages/
 │   ├── Brewfile.common   # shared brew packages
 │   ├── Brewfile.mac      # mac-only
 │   └── Brewfile.linux    # bazzite-only
+├── hooks/                # ~/.config/git/hooks/ (gitleaks pre-commit)
 ├── opencode/             # ~/.config/opencode/
 ├── starship/             # ~/.config/starship.toml
 ├── mise/                 # ~/.config/mise/
+├── vim/                  # ~/.vimrc (loader for ~/.vim_runtime)
+├── zsh/                  # ~/.zshrc (machine-local overrides written by hand, never committed)
 ├── mac/                  # mac-only dotfiles (optional)
 └── bazzite/              # bazzite-only dotfiles (optional)
 ```
