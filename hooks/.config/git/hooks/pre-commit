@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# pre-commit: scan staged files for secrets with gitleaks
+set -euo pipefail
+
+if ! command -v gitleaks &>/dev/null; then
+  echo "⚠  gitleaks not installed — skipping secret scan (brew install gitleaks)"
+  exit 0
+fi
+
+gitleaks protect --staged --redact --no-banner
+
+if [ $? -ne 0 ]; then
+  echo
+  echo "✗ Secret detected — commit blocked."
+  echo "  Fix the finding, then: git commit"
+  echo "  To bypass (dangerous): git commit --no-verify"
+  exit 1
+fi

@@ -1,0 +1,25 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	signingkey = EA22039549037368
+	name = Emil Albrektsson
+	email = 61695840+albrektsson@users.noreply.github.com
+[commit]
+	gpgsign = true
+[pull]
+	rebase = false
+[gpg]
+	program = /opt/homebrew/bin/gpg
+[init]
+	defaultBranch = main
+[core]
+	editor = vim --nofork
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

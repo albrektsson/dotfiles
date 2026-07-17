@@ -1,0 +1,15 @@
+# Brewfile.common — packages installed on all machines
+# Update with: ./scripts/save-packages.sh
+
+brew "git"
+brew "stow"
+brew "mise"
+brew "starship"
+brew "jq"
+brew "yq"
+brew "ripgrep"
+brew "fzf"
+brew "bat"
+brew "pnpm"
+brew "uv""
+brew "zsh-autosuggestions"

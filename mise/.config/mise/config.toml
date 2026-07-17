@@ -1,0 +1,10 @@
+[tools]
+fnox = "latest"
+java = "25"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
+minimum_release_age = "7d"
+
+[settings.ruby]
+compile = false

@@ -1,0 +1,5 @@
+# Brewfile.linux — packages installed on Bazzite/Linux only
+# Update with: ./scripts/save-packages.sh
+
+# Linux-specific tools go here
+brew "zsh"
