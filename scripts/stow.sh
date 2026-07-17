@@ -15,9 +15,9 @@ COMMON=(
   opencode
   starship
   mise
+  omz-custom
   vim
   zsh
-  zsh-custom
 )
 
 # Machine-specific packages (directories must exist to be stowed)
@@ -42,3 +42,6 @@ for pkg in "${PACKAGES[@]}"; do
   # --restow re-links cleanly if already stowed
   stow --restow -vt "$HOME" "$pkg" 2>&1 | sed 's/^/    /'
 done
+
+# Ensure hooks are executable
+chmod +x "$HOME/.config/git/hooks/"* 2>/dev/null || true
