@@ -16,7 +16,7 @@ else
   compinit -C
 fi
 
-export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+export ZSH="${ZSH:-$HOME/.config/zsh/.oh-my-zsh}"
 
 plugins=(
   git
@@ -51,7 +51,7 @@ export OPENCODE_EXPERIMENTAL_LSP_TOOL=true
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 # Machine-local config (not tracked in dotfiles)
-[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+[ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ] && source "${ZDOTDIR:-$HOME}/.zshrc.local"
 
 # Tool init — at the end so PATH is fully set
 source <(fzf --zsh)
