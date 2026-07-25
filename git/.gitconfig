@@ -16,5 +16,6 @@
 [core]
     editor = vim --nofork
     hooksPath = ~/.config/git/hooks
+	precomposeunicode = false
 [include]
     path = ~/.gitconfig.local

@@ -16,7 +16,7 @@ else
   compinit -C
 fi
 
-export ZSH="${ZSH:-$HOME/.config/zsh/.oh-my-zsh}"
+export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 
 plugins=(
   git
