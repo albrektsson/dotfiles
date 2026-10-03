@@ -1,0 +1,27 @@
+# pacman.txt — packages installed on Arch-based machines (CachyOS)
+# One package per line. Installed by scripts/pacman.sh — edit by hand.
+# fnox is not packaged; it is installed by mise (see mise/.config/mise/config.toml).
+
+git
+stow
+mise
+starship
+jq
+yq                  # python yq; go-yq (the one brew installs) conflicts with it
+ripgrep
+fzf
+bat
+pnpm
+uv
+gitleaks
+github-cli
+gnupg
+vim
+
+# Shell
+zsh
+oh-my-zsh-git       # installs to /usr/share/oh-my-zsh
+zsh-autosuggestions # installs to /usr/share/zsh/plugins
+
+# Fonts
+ttf-firacode-nerd   # required by the starship prompt icons

@@ -14,6 +14,17 @@ case "$OS" in
     fi
     ;;
   linux)
+    # Arch-based: the font comes from ttf-firacode-nerd (packages/pacman.txt)
+    if [ "${PKG_MANAGER:-}" = "pacman" ]; then
+      if pacman -Qq ttf-firacode-nerd &>/dev/null; then
+        echo "  $FONT_NAME already installed (pacman)"
+      else
+        echo "  Installing $FONT_NAME via pacman..."
+        sudo pacman -S --needed ttf-firacode-nerd
+      fi
+      exit 0
+    fi
+
     FONT_DIR="$HOME/.local/share/fonts/FiraCodeNerdFont"
     if [ -d "$FONT_DIR" ] && [ -n "$(ls -A "$FONT_DIR" 2>/dev/null)" ]; then
       echo "  $FONT_NAME already installed"

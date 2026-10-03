@@ -14,6 +14,13 @@ This repo manages Emil's dotfiles for **macOS** (work machine) and **Bazzite** (
 |---|---|---|---|
 | Work laptop | macOS | Ghostty | zsh (system default) |
 | Home machine | Bazzite (immutable Fedora) | Konsole | zsh via Homebrew (NOT chsh — see below) |
+| Home machine | CachyOS (Arch-based) | Konsole / Alacritty | zsh (system, `/usr/bin/zsh`) |
+
+**CachyOS note:** packages come from **pacman**, not Homebrew (`packages/pacman.txt`, `scripts/pacman.sh`).
+Bootstrap picks pacman on any Linux machine that has it. No `~/.zshenv`/`ZDOTDIR` is used there — `~/.zshrc`
+is stowed straight into `$HOME`. oh-my-zsh is the `oh-my-zsh-git` package in `/usr/share/oh-my-zsh`
+(`.zshrc` falls back to it when `~/.oh-my-zsh/oh-my-zsh.sh` is missing, and always sets
+`ZSH_CUSTOM=~/.oh-my-zsh/custom`); zsh-autosuggestions is sourced from `/usr/share/zsh/plugins`.
 
 **Bazzite shell note:** Do NOT use `chsh` or modify `/etc/passwd` on Bazzite — it breaks KDE login. Instead set zsh as a custom command in Konsole: Settings → Edit Current Profile → Command → `/home/linuxbrew/.linuxbrew/bin/zsh`.
 
@@ -37,6 +44,7 @@ Each directory is a GNU Stow package. Files inside replicate their path relative
 |---|---|
 | `mac/` | macOS only |
 | `bazzite/` | Bazzite only |
+| `cachyos/` | CachyOS only (Linux packages are named after `ID` in `/etc/os-release`) |
 
 ## Machine-local files (NOT tracked in this repo)
 
@@ -58,6 +66,8 @@ Contains machine-specific git settings that can't be shared:
     helper =
     helper = !/opt/homebrew/bin/gh auth git-credential
 ```
+
+**CachyOS:** same as Bazzite but with `/usr/bin/gpg` and `/usr/bin/gh`, plus `[user] signingkey` for that machine's GPG key.
 
 **Bazzite:**
 ```ini
@@ -104,17 +114,27 @@ cd ~/dotfiles
 ```
 
 ### Steps (in order)
-1. **brew** — installs Homebrew if missing, then `Brewfile.common` + `Brewfile.<os>`
-2. **omz** — installs oh-my-zsh if missing (`--unattended`, doesn't switch shell)
+1. **packages** — pacman machines: installs missing packages from `packages/pacman.txt` (needs sudo). Otherwise: installs Homebrew if missing, then `Brewfile.common` + `Brewfile.<os>`
+2. **omz** — installs oh-my-zsh if missing (`--unattended`, doesn't switch shell). pacman: provided by `oh-my-zsh-git`
 3. **vim** — clones amix/vimrc to `~/.vim_runtime`, runs installer. On re-run: `git pull`
-4. **mise** — installs mise if missing, trusts and runs `mise install` on `~/.config/mise/config.toml`
-5. **fonts** — installs FiraCode Nerd Font (cask on mac, tarball download on linux)
-6. **stow** — stows all packages with `--adopt --restow`, then `git checkout -- .` to restore repo versions
+4. **fonts** — installs FiraCode Nerd Font (cask on mac, `ttf-firacode-nerd` on pacman, tarball download on Bazzite)
+5. **linux-setup** — Bazzite only: `~/.zshenv` with Homebrew init + `ZDOTDIR`
+6. **stow** — stows all packages with `--restow`. Pre-existing real files in the way are moved to `<file>.pre-dotfiles` first
+7. **mise** — installs mise if missing, trusts and runs `mise install` on `~/.config/mise/config.toml` (after stow, so the config is linked)
 
 ### Skip flags
 ```bash
-./bootstrap.sh --skip-brew --skip-omz --skip-vim --skip-mise --skip-fonts --skip-stow
+./bootstrap.sh --skip-packages --skip-omz --skip-vim --skip-mise --skip-fonts --skip-stow
 ```
+
+### Selecting packages
+```bash
+./bootstrap.sh --only vim,zsh        # only these stow packages
+./bootstrap.sh --except opencode     # everything but these
+```
+Setup steps follow their package (omz ↔ `zsh`/`omz-custom`, vim runtime ↔ `vim`, mise ↔ `mise`,
+fonts ↔ `starship`, linux-setup ↔ `zsh`). `--only` also skips the system packages step.
+Single package by hand: `stow -vt ~ <package>` (unlink with `-D`).
 
 ## Package management
 
@@ -127,6 +147,7 @@ git diff packages/            # review before committing
 `Brewfile.common` — shared across all machines
 `Brewfile.mac` — macOS only (taps, casks, NAV-specific tooling)
 `Brewfile.linux` — Bazzite only (includes `zsh` since it's not bundled)
+`pacman.txt` — CachyOS only, edited by hand (`save-packages.sh` does not snapshot pacman)
 
 ## Pre-commit hook
 
