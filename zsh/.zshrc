@@ -47,6 +47,10 @@ if (( ! ${plugins[(Ie)zsh-autosuggestions]} )) && \
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
+# Editor
+export EDITOR="vim"
+export VISUAL="$EDITOR"
+
 # GPG
 export GPG_TTY=$(tty)
 
