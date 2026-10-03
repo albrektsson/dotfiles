@@ -33,7 +33,7 @@ Each directory is a GNU Stow package. Files inside replicate their path relative
 | `git/` | `~/.gitconfig` | Shared git config. Machine-specific paths via `[include] ~/.gitconfig.local` |
 | `hooks/` | `~/.config/git/hooks/` | pre-commit secret scan via gitleaks |
 | `opencode/` | `~/.config/opencode/opencode.json` | Uses `{env:HOME}` instead of hardcoded path in `external_directory` |
-| `starship/` | `~/.config/starship.toml` | Custom prompt with git, k8s, time segments. Requires FiraCode Nerd Font |
+| `starship/` | `~/.config/starship.toml` | Pure preset plus k8s context and exit status, left prompt only (no right prompt). Uses no Nerd Font glyphs; bootstrap still installs FiraCode Nerd Font |
 | `mise/` | `~/.config/mise/config.toml` | Global mise tools: fnox, java |
 | `omz-custom/` | `~/.oh-my-zsh/custom/aliases.zsh` | Shell aliases and functions. Zoom links intentionally excluded (in `.zshrc.local`) |
 | `vim/` | `~/.vimrc` | Loader for amix/vimrc runtime at `~/.vim_runtime` |
