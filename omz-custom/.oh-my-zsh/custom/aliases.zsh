@@ -1,4 +1,4 @@
-alias kubectl="kubecolor"
+command -v kubecolor &>/dev/null && alias kubectl="kubecolor"
 
 
 jwt () {

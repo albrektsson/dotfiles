@@ -13,6 +13,11 @@ case "$(uname -s)" in
   *)      echo "Unsupported OS"; exit 1 ;;
 esac
 
+if [ "$OS" = "linux" ] && command -v pacman &>/dev/null; then
+  echo "Arch-based machine: edit packages/pacman.txt by hand (no snapshot for pacman)"
+  exit 0
+fi
+
 if ! command -v brew &>/dev/null; then
   echo "Homebrew not found"
   exit 1

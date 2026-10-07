@@ -16,13 +16,24 @@ else
   compinit -C
 fi
 
-export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+# oh-my-zsh: user install in ~/.oh-my-zsh, or the distro package on Arch (oh-my-zsh-git)
+if [ -z "$ZSH" ]; then
+  if [ -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
+    ZSH="$HOME/.oh-my-zsh"
+  else
+    ZSH="/usr/share/oh-my-zsh"
+  fi
+fi
+export ZSH
+# Stowed by the omz-custom package — always in $HOME, even when omz itself isn't
+ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 plugins=(
   git
-  zsh-autosuggestions
   fzf
 )
+# zsh-autosuggestions: omz custom plugin if present, else the distro package (sourced below)
+[ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && plugins+=(zsh-autosuggestions)
 
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
 ZSH_AUTOSUGGEST_USE_ASYNC=1
@@ -30,6 +41,15 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
 source $ZSH/oh-my-zsh.sh
+
+if (( ! ${plugins[(Ie)zsh-autosuggestions]} )) && \
+   [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# Editor
+export EDITOR="vim"
+export VISUAL="$EDITOR"
 
 # GPG
 export GPG_TTY=$(tty)
