@@ -58,3 +58,6 @@ source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 eval "$(fnox activate zsh)"
+
+# bun completions
+[ -s "/Users/albrektsson/.bun/_bun" ] && source "/Users/albrektsson/.bun/_bun"

@@ -90,13 +90,7 @@
     },
     "skill": "ask",
     "todowrite": "allow",
-    "webfetch": "allow",
-    "io_github_navikt_aksel-mcp_*": "deny",
-    "io_github_navikt_aksel-mcp_aksel_find_docs": "allow",
-    "io_github_navikt_aksel-mcp_aksel_get_doc": "allow",
-    "io_github_navikt_aksel-mcp_aksel_get_token_details": "allow",
-    "io_github_navikt_aksel-mcp_aksel_find_icons": "allow",
-    "io_github_navikt_aksel-mcp_aksel_get_component_info": "allow"
+    "webfetch": "allow"
   },
   "share": "disabled",
   "watcher": {
@@ -105,12 +99,5 @@
       "dist/**",
       ".git/**"
     ]
-  },
-  "mcp": {
-    "io.github.navikt/aksel-mcp": {
-      "enabled": true,
-      "type": "remote",
-      "url": "https://aksel-mcp.nav.no/mcp"
-    }
   }
 }

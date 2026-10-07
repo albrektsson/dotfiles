@@ -1,5 +1,4 @@
 [tools]
-fnox = "latest"
 java = "25"
 
 [settings]
